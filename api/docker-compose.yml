@@ -1,0 +1,23 @@
+version: '3'
+services:  
+  fastapi:
+      build: .
+      ports: 
+        - 8081:8081
+      volumes: 
+        - .:/fastapi
+      depends_on: 
+        - db
+  db:
+    image: postgres
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=credentials
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
